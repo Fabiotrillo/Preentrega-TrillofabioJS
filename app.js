@@ -92,9 +92,7 @@ class Carrito{
         return this.listaCarrito.reduce( (acumulador,producto) => acumulador + producto.precio * producto.cantidad ,0)
     }
 
-    calcularIVA(){
-        return this.calcularTotal() * 1.21
-    }
+   
 }
 
 const CP = new ProductoController()
