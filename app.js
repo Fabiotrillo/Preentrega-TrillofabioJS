@@ -1,4 +1,3 @@
-//Funciones
 function saludar(nombre, apellido) {
     alert("Bienvenido " + nombre + " " + apellido);
   }
@@ -28,106 +27,81 @@ class Producto{
                "\nPrecio: "+ this.precio+
                "\nPrecio + IVa: "+ this.sumar_iva()+
                "\n";   
-      } 
-
-      descripcionDeCompra(){
-        return "\nProducto: "+ this.id+
-                "\nNombre: "+ this.nombre+
-                "\nPrecio: "+ this.precio+
-                "\nPrecio + IVa: "+ this.sumar_iva()+
-                "\nCantidad: "+ this.cantidad+
-                "\n"; 
-      }
+      }   
      
 }
 
-class ProductoController{
-    constructor(){
-        this.listaProductos = []
-    }
+const listaProductos = [    new Producto(1,"Fideos",200),
 
-    agregar(producto){
-        this.listaProductos.push(producto)
-    }
+                            new Producto(2,"Arroz",400),
 
-    buscarProductoPorID(id){
-        return this.listaProductos.find(producto => producto.id == id)
-    }
+                            new Producto(3,"Leche",700)
 
-    mostrarProductos(){
-        let listaEnTexto = ""
-        this.listaProductos.forEach( producto => {
-            listaEnTexto = listaEnTexto + producto.descripcion()
-        })
-        alert(listaEnTexto)
-    }
-}
+]
 
-class Carrito{
-    constructor(){
-        this.listaCarrito = []
-    }
+ 
 
-    agregar(producto,cantidad){
-    
-        let existe = this.listaCarrito.some( el => el.id == producto.id)
-        if(existe){
-            producto.aumentarCantidad(cantidad)
-        }else{
-            producto.aumentarCantidad(cantidad)
-            this.listaCarrito.push(producto)
-        }
-    }
+const carrito = []
 
-    mostrarProductos(){
-        let listaEnTexto = "Carrito de compras:\n"
-        this.listaCarrito.forEach(producto => {
-            listaEnTexto = listaEnTexto + producto.descripcionDeCompra()
-           
-        })
-        alert(listaEnTexto)
-    }
+ 
 
-    calcularTotal(){
-        return this.listaCarrito.reduce( (acumulador,producto) => acumulador + producto.precio * producto.cantidad ,0)
-    }
+let rta = ""
 
-   
-}
+let acumuladora = ""
 
-const CP = new ProductoController()
-const CARRITO = new Carrito()
-
-CP.agregar(new Producto(1,"producto1", 250, 0))
-CP.agregar(new Producto(2,"producto2", 350, 0))
-CP.agregar(new Producto(3,"producto3", 400, 0))
-CP.agregar(new Producto(4,"producto4", 100, 0))
-
-let  rta = ""
-
-
-
-
-do{
-
-  //usuario
+do {
+    //usuario
   let nombre = prompt("Ingrese su Nombre");
   let apellido = prompt("Ingrese su Apellido");
 
   saludar(nombre, apellido);
-  
 
-  //Mostramos productos al usuario
+    //le muestro al usuario la lista de productos
 
-    CP.mostrarProductos()
-    let opcion = Number(prompt("Ingrese el código del producto que desea agregar"))
-    let producto = CP.buscarProductoPorID(opcion)
-    let cantidad = Number(prompt("Ingrese la cantidad del producto seleccionado que desea"))
-    CARRITO.agregar(producto,cantidad)
-    alert("El producto fué añadido exitosamente: ")
-    CARRITO.mostrarProductos()
+    listaProductos.forEach((producto, index) => {
+        acumuladora += (index + 1) + producto.descripcion();
+      });
 
-    rta = prompt("Ingrese 'ESC' para salir").toUpperCase()
-}while(rta != "ESC")
+    alert(acumuladora)
 
-alert("El total de su compra es de: "+ CARRITO.calcularTotal())
+ 
+
+    let opcion = prompt("Ingrese el N° del elemento a comprar: ")
+
+ 
+
+    if(opcion == 1){
+
+        carrito.push(listaProductos[opcion-1])
+
+    }else if ( opcion == 2){
+
+        carrito.push(listaProductos[opcion-1])
+
+    }else if (opcion == 3){
+
+        carrito.push(listaProductos[opcion-1])
+
+    }else{
+
+        alert("No tenemos esa opción :(")
+
+    }
+
+ 
+
+    rta = prompt("Ingrese 'ESC' para salir. o la tecla enter para continuar.").toUpperCase()
+
+    
+
+} while (rta != 'ESC');
+
+let acumuladora2 = ""
+
+for (const producto of carrito) {
+
+    acumuladora2 = acumuladora2 + producto.descripcion()
+
+}
+
+alert(acumuladora2)
